@@ -1,0 +1,14 @@
+<html>
+<head>
+<link rel="stylesheet" href="tests.css">
+<script>
+window.opener.postMessage("send then close", "*");
+window.close();
+</script>
+</head>
+<body>
+<h1>Self-closing postMessage popup</h1>
+
+This popup expects to be opened by post-message.html.  It will send a postMessage to its opener and immediately close.
+
+</html>

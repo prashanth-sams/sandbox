@@ -1,0 +1,34 @@
+<html>
+<head>
+<link rel="stylesheet" href="tests.css">
+<script>
+
+var nextFrameNum = 1;
+
+function addFrame() {
+  var div = document.createElement("div");
+  var divHTML =
+      "Frame " + nextFrameNum + ":<br>\n" +
+      "<iframe id=\"frame" + nextFrameNum + "\" src=\"data:text/html,Initial page\" width=500 height=300></iframe><br>\n" +
+      "<button onclick=\"navFrame(" + nextFrameNum + ", 'https://csreis.github.io')\">Go cross-site (simple page)</button>\n" +
+      "<button onclick=\"navFrame(" + nextFrameNum + ", 'http://build.chromium.org')\">Go cross-site (complex page)</button>\n" +
+      "<button onclick=\"navFrame(" + nextFrameNum + ", 'simple.html')\">Go same-site</button><p>\n";
+  div.innerHTML = divHTML;
+  document.body.appendChild(div);
+  nextFrameNum++;
+}
+
+function navFrame(num, url) {
+  document.getElementById("frame" + num).src = url;
+}
+
+</script>
+</head>
+<body onload="addFrame()">
+<h1>Cross-site iframe test</h1>
+
+<button onclick="addFrame()">Add Frame</button>
+<p>
+<hr>
+
+</html>

@@ -1,0 +1,68 @@
+<html>
+<head>
+<link rel="stylesheet" href="tests.css">
+<script>
+var w;
+
+function navFrame(url) {
+  document.getElementById("frame1").src = url;
+}
+
+function openPopup(url) {
+  w = window.open(url);
+}
+
+function output(msg) {
+  document.getElementById("output").innerText += msg + "\n";
+}
+
+function sendMessage(win, msg) {
+  output("Sending: " + msg);
+  try {
+    win.postMessage(msg, "*");
+  } catch (e) {
+    output("Error: " + e);
+  }
+}
+
+function sendMessageToSubframe(msg) {
+  sendMessage(document.getElementById("frame1").contentWindow, msg);
+}
+
+function sendMessageToPopup(msg) {
+  sendMessage(w, msg);
+}
+
+window.addEventListener(
+  "message",
+  function (event) {
+    output("Reply: " + event.data);
+  },
+  false);
+
+</script>
+</head>
+<body>
+<h1>postMessage test</h1>
+
+<p>
+Frame 1:<br>
+<iframe
+    id="frame1" src="data:text/html,Initial page"
+    width=500 height=300></iframe><br>
+<button onclick="navFrame('https://csreis.github.io/tests/post-message-subframe.html')">Load cross-site subframe</button>
+<button onclick="sendMessageToSubframe('foo')">postMessage to subframe</button>
+</p>
+
+<p>
+<button onclick="openPopup('https://csreis.github.io/tests/post-message-subframe.html')">Open popup</button>
+<button onclick="openPopup('https://csreis.github.io/tests/self-closing-post-message-popup.html')">Open self-closing popup</button>
+<button onclick="sendMessageToPopup('foo')">postMessage to popup</button>
+</p>
+
+<p>
+Output:<br>
+<div id="output"></div>
+</p>
+
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+function createAdFrame() {
+  var f = document.createElement("iframe");
+  f.src = "https://www.example.com";
+  f.onload = function() { console.log("Inner frame's ad frame loaded."); }
+  document.body.appendChild(f);
+}
+</script>
+</head>
+<body>
+<h1>Inner Frame</h1>
+<script>
+// Set a breakpoint here to let main frame win the race.
+createAdFrame();
+
+</script>
+</body>
+</html>

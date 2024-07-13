@@ -1,0 +1,26 @@
+<script>
+var w;
+
+function openWindow() {
+  w = window.open();
+}
+
+function addContent() {
+  w.document.body.innerHTML = "<button onclick='opener.navWindow()'>Navigate</button>";
+}
+  
+function navWindow() {
+  w.location.href = "https://www.example.com";
+  var i = setInterval(function () {
+    try {
+      w.location.href;
+    } catch (e) {
+      w.location.href = 'https://www.google.com/csi';
+      clearInterval(i);
+    }
+  }, 1);
+}
+</script>
+<button onclick="openWindow()">Open Window</button>
+<button onclick="addContent()">Add Content</button>
+<button onclick="navWindow()">Navigate Window</button>
